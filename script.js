@@ -1,64 +1,86 @@
-console.log("Script loading...");
+// Sidhu's Adaptive Math - 4th to 6th Grade, Daily Fresh, Skill-Based
+let skillLevel = localStorage.getItem('skillLevel') || 1; // 1-6
+let dailySeed = new Date().getFullYear() * 100 + new Date().getMonth() * 10 + new Date().getDate(); // Unique daily
 
-const questions = {
-  math: [
-    {q:"7×8=?",a:["48","54","56","64"],c:2},
-    {q:"36÷4=?",a:["6","8","9","10"],c:2},
-    {q:"400+230=?",a:["530","630","640","700"],c:0}
-  ],
-  reading: [
-    {q:"Afternoon after school?",a:["Morning","Afternoon","Evening","Night"],c:1},
-    {q:"Desert=?",a:["Trees","Dry","Buildings","Ice"],c:1}
-  ]
+const mathGenerators = {
+  1: () => { // 4th Easy: Basic ops
+    const ops = ['+', '-', '×'];
+    const a = Math.floor(Math.random() * 12) + 1;
+    const b = Math.floor(Math.random() * 12) + 1;
+    const op = ops[Math.floor(Math.random() * ops.length)];
+    let answer;
+    if (op === '+') answer = a + b;
+    else if (op === '-') answer = Math.max(a, b) - Math.min(a, b);
+    else answer = a * b;
+    return generateChoices(answer, 4);
+  },
+  2: () => { // 4th Medium: Division
+    const a = Math.floor(Math.random() * 12) + 1;
+    const b = Math.floor(Math.random() * 8) + 2;
+    const answer = a * b;
+    return generateChoices(answer / b, 4, 'int');
+  },
+  3: () => { // 4th Hard: Multi-digit
+    const a = Math.floor(Math.random() * 90) + 10;
+    const b = Math.floor(Math.random() * 9) + 1;
+    return generateChoices(a + b * 10, 4);
+  },
+  4: () => { // 5th: Decimals
+    const a = (Math.floor(Math.random() * 100) + 1) / 10;
+    const b = (Math.floor(Math.random() * 100) + 1) / 10;
+    return generateChoices(a + b, 4, 1);
+  },
+  5: () => { // 6th: Ratios
+    const ratio = Math.floor(Math.random() * 5) + 2;
+    const total = Math.floor(Math.random() * 20) + 10;
+    const part = Math.round(total / ratio);
+    return generateChoices(part, 4);
+  },
+  6: () => { // 6th Max: Basic equations
+    const x = Math.floor(Math.random() * 15) + 1;
+    const p = Math.floor(Math.random() * 10) + 2;
+    return generateChoices(x + p, 4, 'equation');
+  }
 };
 
-const startBtn = document.getElementById("startButton");
-const subjectSel = document.getElementById("subjectSelect");
-const intro = document.getElementById("intro");
-const quiz = document.getElementById("quiz");
-const qCont = document.getElementById("questionContainer");
-let currQ = 0, score = 0;
-
-startBtn.onclick = function() {
-  console.log("Start clicked");
-  const sub = subjectSel.value;
-  const qs = questions[sub];
-  currQ = 0;
-  score = 0;
-  
-  intro.style.display = "none";
-  quiz.style.display = "block";
-  
-  showQ(qs);
-};
-
-function showQ(qs) {
-  qCont.innerHTML = "";
-  if (currQ >= qs.length) {
-    qCont.innerHTML = `<h3>${score}/${qs.length} - Great job!</h3>`;
-    return;
+function generateChoices(answer, numChoices, type = 'int') {
+  const choices = [answer];
+  while (choices.length < numChoices) {
+    let wrong = answer + (Math.random() < 0.5 ? -1 : 1) * (Math.floor(Math.random() * 8) + 2);
+    if (type === 1) wrong = Math.round(wrong * 10) / 10;
+    if (!choices.includes(wrong)) choices.push(wrong);
   }
-  
-  const q = qs[currQ];
-  qCont.innerHTML += `<p><b>Q${currQ+1}: ${q.q}</b></p>`;
-  
-  q.a.forEach((ans,i) => {
-    const btn = document.createElement("button");
-    btn.innerText = ans;
-    btn.className = "choice-button";
-    btn.onclick = () => checkAns(btn, i, q.c);
-    qCont.appendChild(btn);
-  });
+  choices.sort(() => Math.random() - 0.5);
+  return {
+    question: type === 'equation' ? `If x + 3 = ${choices[0]}, x = ?` : `Solve: ${answer} ?`,
+    choices: choices.map(c => c.toString()),
+    correctIndex: choices.indexOf(answer)
+  };
 }
 
-function checkAns(btn, picked, correct) {
-  btn.disabled = true;
-  if (picked === correct) {
-    btn.style.background = "#c8f7c5";
-    score++;
-  } else {
-    btn.style.background = "#f7c5c5";
+// Generate 5 fresh math questions
+function getMathQuestions() {
+  const questions = [];
+  for (let i = 0; i < 5; i++) {
+    questions.push(mathGenerators[skillLevel]());
   }
-  currQ++;
-  setTimeout(() => showQ(questions[subjectSel.value]), 1000);
+  return questions;
 }
+
+// Update skill level based on performance
+function updateSkillLevel(finalScore, total) {
+  const accuracy = finalScore / total;
+  if (accuracy >= 0.8 && skillLevel < 6) {
+    skillLevel++;
+    localStorage.setItem('skillLevel', skillLevel);
+    alert(`Level up! Now level ${skillLevel}/6 (6th grade)`);
+  } else if (accuracy < 0.6 && skillLevel > 1) {
+    skillLevel--;
+    localStorage.setItem('skillLevel', skillLevel);
+    alert(`Review time. Back to level ${skillLevel}`);
+  }
+}
+
+// ... [Keep all your existing code below: questionsBySubject, event listeners, etc.]
+// Just replace the math array with: math: [],
+// And call getMathQuestions() in startMission for math
