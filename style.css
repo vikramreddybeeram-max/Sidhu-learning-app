@@ -1,5 +1,6 @@
+/* Sidhu's Learning App - Fixed Colors */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   margin: 0;
   padding: 20px;
@@ -9,103 +10,90 @@ body {
 #app {
   max-width: 700px;
   margin: 0 auto;
-  background: #ffffff;
+  background: white;
   padding: 30px;
   border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
 h1 {
   text-align: center;
-  color: #333;
+  color: #2d3748;
   margin-bottom: 30px;
-  font-size: 2.2em;
-}
-
-h2 {
-  text-align: center;
-  color: #4a5568;
-}
-
-button {
-  background: #4299e1;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  font-size: 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  margin: 5px;
-  transition: background 0.3s;
-}
-
-button:hover {
-  background: #3182ce;
-}
-
-.hidden {
-  display: none;
-}
-
-.choice-button {
-  display: block;
-  margin: 10px 0;
-  width: 100%;
-  text-align: left;
-  padding: 15px;
-  background: white;
-  color: #333333 !important;
-  border: 3px solid #4299e1;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 500;
-}
-
-.choice-button:hover {
-  background: #eff6ff;
-  border-color: #3182ce;
-}
-
-.correct {
-  background: #c6f6d5 !important;
-  color: #22543d !important;
-  border-color: #38a169 !important;
-}
-
-.incorrect {
-  background: #fed7d7 !important;
-  color: #742a2a !important;
-  border-color: #e53e3e !important;
-}
-
-
-.choice-button:hover {
-  background: #edf2f7;
-}
-
-.correct {
-  background: #c6f6d5 !important;
-  border-color: #38a169 !important;
-}
-
-.incorrect {
-  background: #fed7d7 !important;
-  border-color: #e53e3e !important;
+  font-size: 2.5em;
 }
 
 #intro {
   text-align: center;
 }
 
-select {
-  padding: 10px;
+select, button {
+  padding: 12px 20px;
   margin: 10px;
-  font-size: 16px;
+  font-size: 18px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+#startButton {
+  background: #48bb78;
+  color: white;
+  font-weight: bold;
+}
+
+#startButton:hover {
+  background: #38a169;
+}
+
+/* CHOICE BUTTONS - DARK TEXT, BRIGHT COLORS */
+.choice-button {
+  display: block !important;
+  margin: 12px 0 !important;
+  padding: 20px !important;
+  background: #ffffff !important;
+  color: #000000 !important;  /* BLACK TEXT */
+  border: 4px solid #4299e1 !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+  border-radius: 12px !important;
+  width: 100% !important;
+  text-align: left !important;
+  cursor: pointer;
+}
+
+.choice-button:hover {
+  background: #f0f9ff !important;
+  border-color: #3182ce !important;
+}
+
+/* CORRECT - BRIGHT GREEN + BLACK TEXT */
+.correct {
+  background: #68d391 !important;
+  color: #000000 !important;  /* BLACK TEXT */
+  border-color: #38a169 !important;
+}
+
+/* INCORRECT - BRIGHT RED + BLACK TEXT */
+.incorrect {
+  background: #f56565 !important;
+  color: #000000 !important;  /* BLACK TEXT */
+  border-color: #e53e3e !important;
+}
+
+.hidden {
+  display: none !important;
+}
+
+#quizTitle {
+  color: #2d3748;
+  font-size: 2em;
+  text-align: center;
 }
 
 #scoreText {
-  font-size: 1.3em;
-  text-align: center;
+  font-size: 2em;
   color: #2d3748;
   font-weight: bold;
+  text-align: center;
 }
