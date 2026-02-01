@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sidhu's 4th Grade Daily Mission</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <h1>Sidhu's 4th Grade Daily Mission</h1>
+
+    <div id="intro">
+      <p>Hi Sidhu! Pick a subject and start your mission for today.</p>
+      <label for="subjectSelect">Subject:</label>
+      <select id="subjectSelect">
+        <option value="math">Math</option>
+        <option value="reading">Reading</option>
+      </select>
+      <button id="startButton">Start Mission</button>
+    </div>
+
+    <div id="quiz" class="hidden">
+      <h2 id="quizTitle"></h2>
+      <div id="questionContainer"></div>
+      <button id="nextButton" class="hidden">Next Question</button>
+    </div>
+
+    <div id="result" class="hidden">
+      <h2>Mission Complete!</h2>
+      <p id="scoreText"></p>
+      <button id="restartButton">Play Again</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
